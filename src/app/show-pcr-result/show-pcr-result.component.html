@@ -1,0 +1,58 @@
+<div id="canvas11">
+<h2>Lab Data:</h2>
+<tr *ngFor="let data of ['labName','username','plateBarcode','pcrSerial','runDate','runTime','testKitName','fluorophores','numCycles','numWells']">
+  <th>
+    {{ data }}
+  </th>
+  <td>
+    {{ result["data_preamble"][data]}}
+  </td>
+</tr>
+<h2>
+  Negative Extraction Control (NEC) & Positive Control (PCT) results :
+</h2>
+<table>
+  <tr>
+    <th> TYPE </th>
+    <th *ngFor="let column of columns"> {{ column }}</th>
+  </tr>
+  <tr *ngFor="let row of rows">
+    <td>{{ row }}</td>
+    <td *ngFor="let column of columns"> {{ result['NEC PCT results'][column+row] }}</td>
+  </tr>
+</table>
+<p><b>PCT RESULT: </b>{{ result['NEC PCT results']['PCTresult'] }}</p>
+<p><b>NEC RESULT: </b>{{ result['NEC PCT results']['NECresult'] }}</p>
+
+<h2>Patient Data:</h2>
+<p><b>Well: </b>{{ result["wells_data"]['wellNum'] }}</p>
+<table>
+  <tr>
+    <th> TYPE </th>
+    <th *ngFor="let column of ['hex', 'fam','rox','cy5']"> {{ column }}</th>
+  </tr>
+  <tr *ngFor="let row of rows">
+    <td>{{ row }}</td>
+    <td *ngFor="let column of ['hex', 'fam','rox','cy5']"> {{ result['wells_data'][column+row] }}</td>
+  </tr>
+</table>
+<p><b>test_call: </b>{{ result["wells_data"]['test_call'] }}</p>
+
+
+<mat-grid-list cols="2" rowHeight="2:1" style="width: auto;">
+  <mat-grid-tile *ngFor="let serie of series; let i = index">
+    <ngx-charts-line-chart
+        [legend]="false"
+        [showXAxisLabel]="false"
+        [showYAxisLabel]="true"
+        [xAxis]="false"
+        [yAxis]="true"
+        [timeline]="false"
+        [results]="chartSeries[i]"
+        >
+      </ngx-charts-line-chart>
+      <mat-grid-tile-footer> {{serie}} </mat-grid-tile-footer>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div> 
+<button mat-raised-button (click)="printPdf()">Save PDF</button>

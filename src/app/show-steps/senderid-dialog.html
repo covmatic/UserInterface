@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>New sender id</h1>
+
+<div mat-dialog-content>
+  <p>New sender ID</p>
+  <mat-form-field>
+    <mat-label>Sender ID</mat-label>
+    <input matInput focu [(ngModel)]="senderID" #sender> {{ sender.focus()}}
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Close</button>
+  <button mat-button [mat-dialog-close]="senderID" >Ok</button>
+</div>

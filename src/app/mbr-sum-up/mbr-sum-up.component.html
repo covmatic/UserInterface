@@ -1,0 +1,25 @@
+<div *ngFor="let group of groups">
+  <h2> {{group.name}}</h2>
+  <div *ngFor="let card of group.cards">
+    <h3>{{ card.name}}</h3>
+    <table>
+      <tr>
+        <th *ngFor="let column of columns">{{ column }}</th>
+      </tr>
+      <tr>
+        <td style="width: 300px;">{{card.name}}</td>
+        <td style="width: 325px;">
+          <ul>
+            <li *ngFor="let instruction of card.values">
+              {{instruction.name}}{{instruction.isInput? ': ' + card.result : '' }}</li>
+          </ul>
+        </td>
+        <td style="width: 75px;"> {{card['operator'] }} </td>
+        <td style="width: 100px;"> {{card['timestamp'] | date:'short' }} </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<p style="padding: 10px 0px;"  *ngIf="mbr.table==='/mbr/approved'"> Validated by {{ validator.validator }} on {{ validator.timestamp | date:'short' }}</p>
+<button class="mat-raised-button" (click)="close()">Close</button>
+<button *ngIf="mbr.table==='/mbr/finished'" class="mat-raised-button mat-primary" (click)="save()">Approve</button>

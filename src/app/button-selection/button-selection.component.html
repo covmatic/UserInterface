@@ -1,0 +1,11 @@
+<mat-grid-list [cols]="6+1" rowHeight="1:1" *ngFor="let protocol of protocols">
+  <mat-grid-tile [rowspan]="round(protocol.stations.length)">
+      {{ protocol.protocol }}
+  </mat-grid-tile>
+  <mat-grid-tile *ngFor="let station of protocol.stations">
+    <button mat-raised-button [routerLink]="'/station/' + protocol.protocol+'/' + station.name" routerLinkActive='active' style="width:80%; height:80%;">
+      {{ station.name }}
+      <mat-checkbox [disabled]="true" style="display: block;" [checked]="station.calibrated">Calibrated</mat-checkbox>
+    </button>
+  </mat-grid-tile>
+</mat-grid-list>

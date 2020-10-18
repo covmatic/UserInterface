@@ -1,0 +1,32 @@
+<div class="entry-container noselectable">
+  <div class="login-container" fxLayout="column" fxLayoutAlign="center center">
+    <mat-card>
+      <div class="login">
+        <form name="loginForm" #loginForm="ngForm" (ngSubmit)="submitLogin(loginForm)">
+          <mat-form-field class="user-id">
+            <input matInput name="username" type="text" [(ngModel)]="login.username" placeholder="Username"
+                   autocomplete="off"
+                   #usernameField="ngModel"
+                   required/>
+            <mat-error *ngIf="usernameField.hasError('required')"> {{getErrorMessage('required')}}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="password">
+            <input matInput name="password" type="password" [(ngModel)]="login.password" placeholder="Password"
+                   autocomplete="off" #passwordField="ngModel" required/>
+            <mat-error *ngIf="passwordField.hasError('required')">{{getErrorMessage('required')}}</mat-error>
+          </mat-form-field>
+          <div class="actions">
+            <button class="large rounded uppercase button-save" type="submit" mat-raised-button color="primary">
+              Login
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="message-error-server">
+        <span *ngIf="loginFailedError">{{loginFailedError}}</span>
+      </div>
+      <mat-progress-bar *ngIf="loginLoading" mode="indeterminate"></mat-progress-bar>
+    </mat-card>
+  </div>
+</div>

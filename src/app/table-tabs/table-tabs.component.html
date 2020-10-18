@@ -1,0 +1,30 @@
+<mat-tab-group mat-align-tabs="start">
+  <!-- <mat-tab label="Origins">
+    <app-table-edit-view endpoint="origins"></app-table-edit-view>
+  </mat-tab>
+  <mat-tab label="Locations">
+    <app-table-edit-view endpoint="locations"></app-table-edit-view>
+  </mat-tab>
+  <mat-tab label="Plates">
+    <app-table-edit-view endpoint="plates"></app-table-edit-view>
+  </mat-tab>
+  <mat-tab label="Samples">
+    <app-table-edit-view endpoint="samples"></app-table-edit-view>
+  </mat-tab> -->
+
+  <mat-tab label="Partial Master Batch Records">
+    <app-table-edit-view #partial endpoint="/mbr/partial" (selected)="onMBRSelected($event,'/mbr/partial')"></app-table-edit-view>
+  </mat-tab>
+
+  <mat-tab label="Finished Master Batch Records">
+    <app-table-edit-view #finished endpoint="/mbr/finished" (selected)="onMBRSelected($event,'/mbr/finished')"></app-table-edit-view>
+  </mat-tab>
+
+  <mat-tab label="Approved Master Batch Records">
+    <app-table-edit-view #approved endpoint="/mbr/approved" (selected)="onMBRSelected($event,'/mbr/approved')"></app-table-edit-view>
+  </mat-tab>
+
+  <mat-tab label="Results">
+    <app-table-edit-view endpoint="/results" (selected)="onResultSelected($event)"></app-table-edit-view>
+  </mat-tab>
+</mat-tab-group>

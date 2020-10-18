@@ -1,0 +1,12 @@
+<app-table (contextmenuselected)="onContextMenu($event)" [dataSource]="dataSource" [columns]="columns" [filterEnable]="true" [hasFooter]="false" ></app-table>
+<div style="visibility: hidden; position: fixed"
+    [style.left]="contextMenuPosition.x"
+    [style.top]="contextMenuPosition.y"
+    [matMenuTriggerFor]="contextMenu">
+</div>
+<mat-menu #contextMenu="matMenu">
+	<ng-template matMenuContent let-item="item">
+		<button mat-menu-item (click)="addUser()">Add User</button>
+		<button mat-menu-item (click)="deleteUser(item)">Delete User</button>
+  </ng-template>
+</mat-menu>

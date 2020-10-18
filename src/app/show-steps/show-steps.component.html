@@ -1,0 +1,74 @@
+<div class="layout">
+  <div class="col1">
+    <div style="height:90vh;">
+      <mat-accordion class="example-headers-align" multi="true">
+        <ng-container *ngFor="let group of protocol">
+          <h2>{{ group.name }}</h2>
+          <ng-container *ngFor="let task of group.tasks">
+            <a  [id]="(group.name+task.name).split(' ').join('')"></a>
+            <mat-expansion-panel [expanded]="true" (opened)="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title>{{task.name}}</mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-list>
+                <ng-container *ngFor="let instruction of task.instructions">
+                  <mat-divider></mat-divider>
+                  <mat-list-item style="height: fit-content;padding: 10px 5px;">
+                    <mat-icon>arrow_right_alt</mat-icon>
+                    {{instruction.name}}
+                  </mat-list-item>
+                </ng-container>
+              </mat-list>
+            </mat-expansion-panel>
+          </ng-container>
+        </ng-container>
+      </mat-accordion>
+    </div>
+  </div>
+
+  <div class="col2">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>{{ cards[idx].name }}</mat-card-title>
+        <mat-card-subtitle>{{ cards[idx].groupName }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-list>
+          <ng-container *ngFor="let instruction of cards[idx].values">
+            <mat-divider></mat-divider>
+            <mat-list-item style="height: fit-content;padding: 10px 5px;">
+              <mat-icon>arrow_right_alt</mat-icon>
+              {{instruction.name}}
+              <mat-form-field *ngIf="instruction.isInput">
+                <mat-label> {{cards[idx].input}} </mat-label>
+                <input [formControl]="inputText" matInput #bcinput> {{ bcinput.focus()}}
+              </mat-form-field>
+            </mat-list-item>
+            <ul *ngIf="instruction.notes">
+              <li *ngFor="let note of instruction.notes">{{ note }}</li>
+            </ul>
+          </ng-container>
+        </mat-list>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <!-- <button mat-button (click)="move(-1)" [disabled]="isTaskRunning" >PREVIOUS</button> -->
+        <span style="flex: 1 1 auto;"></span>
+        <button mat-button (click)="move(1)" [disabled]="isTaskRunning || (readBarcode && !inputText.valid)">GO</button>
+      </mat-card-actions>
+      <mat-card-footer>
+        <mat-spinner *ngIf="isTaskRunning" style="display: inline-block;"> </mat-spinner>
+        <h2 *ngIf="isTaskRunning" style="display: inline-block;padding: 20px;"> {{taskMessage}}</h2>
+      </mat-card-footer>
+    </mat-card>
+    <button mat-button (click)="pauseAutomation()" *ngIf="isTaskRunning && cards[idx].action" style="padding: 20px;display: inline-block;">Pause</button>
+    <button mat-button (click)="resumeAutomation()" *ngIf="isTaskRunning && cards[idx].action" style="padding: 20px;display: inline-block;">Resume</button>
+    <div *ngIf="runId.length" style="position: fixed; bottom:0; right: 0;">
+      <button mat-button (click)="closeRun()" [disabled]="isTaskRunning">Close MBR</button>
+      <h4>ID running MBR: {{ runId }} </h4>
+    </div>
+    <div *ngIf="protocolName=='0'" style="position: fixed; bottom:0; left:50%;">
+      <button mat-button (click)="changeSenderId()">Change sender</button>
+      <h4>Sender id : {{ senderID }}</h4>
+    </div>
+  </div>
+</div>

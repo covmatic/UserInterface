@@ -1,0 +1,55 @@
+.entry-container{
+  height: 100%;
+
+  .login-container{
+    height: 100%;
+    padding: 1em;
+
+    .mat-card{
+      position: relative;
+      padding: 35px 24px;
+
+      .mat-progress-bar{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+      }
+    }
+
+    .logo {
+      margin-bottom: 25px;
+      text-align: center;
+
+      img{
+        max-width: 220px;
+      }
+    }
+
+    form[name="loginForm"] {
+
+      .mat-form-field{
+        margin-bottom: 15px;
+        width: 100%;
+
+        .mat-error{
+          text-align: right;
+        }
+      }
+
+      .actions{
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 23px;
+      }
+    }
+
+    .message-error-server{
+      position: absolute;
+      text-align: right;
+      font-size: 13px;
+      bottom: 13px;
+      color: red;
+    }
+
+  }
+}
